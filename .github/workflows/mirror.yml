@@ -1,0 +1,19 @@
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  mirror:
+    name: "Mirror"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Clone"
+        run: |
+          git clone --mirror https://github.com/videolan/vlc.git .
+      - name: "Push"
+        env:
+          OSMERION_CI_ACCOUNT_NAME: ${{ secrets.OSMERION_CI_ACCOUNT_NAME }}
+          OSMERION_CI_ACCOUNT_TOKEN: ${{ secrets.OSMERION_CI_ACCOUNT_TOKEN }}
+        run: |
+          git remote set-url origin https://$OSMERION_CI_ACCOUNT_NAME:$OSMERION_CI_ACCOUNT_TOKEN@github.com/Osmerion-CI/vlc
+          git push -f --mirror origin
