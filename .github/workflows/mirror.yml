@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: "Clone"
         run: |
-          git clone --mirror https://github.com/videolan/vlc.git .
+          git clone --bare https://github.com/videolan/vlc.git .
       - name: "Push"
         env:
           OSMERION_CI_ACCOUNT_NAME: ${{ secrets.OSMERION_CI_ACCOUNT_NAME }}
